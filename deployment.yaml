@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iks-demo-1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: iks-demo
+  template:
+    metadata:
+      labels:
+        app: iks-demo
+    spec:
+      containers:
+        - name: iks-demo
+          image: us.icr.io/iks-101/iks-demo:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http-server
+              containerPort: 5000
+
