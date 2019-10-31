@@ -10,17 +10,12 @@ COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt
 
-# using gunicorn as my production server
-
-RUN pip3 install gunicorn
-
 # copy the application
+COPY static static
+COPY templates templates
+COPY webapp.py boot-webapp.sh ./
 
-COPY app app
-
-COPY app.py boot.sh ./
-
-RUN chmod +x boot.sh
+RUN chmod +x boot-webapp.sh
 
 ENV FLASK_APP app.py
 
@@ -34,4 +29,4 @@ USER sam
 
 EXPOSE 5000
 
-ENTRYPOINT ["./boot.sh"]
+ENTRYPOINT ["./boot-webapp.sh"]
